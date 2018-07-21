@@ -358,7 +358,8 @@ function ajax_login(){
     $user_signon = wp_signon( $info, false );
 
     if ( is_wp_error($user_signon) ){
-        echo json_encode(array('loggedin'=>false, 'message'=>__('Wrong username or password.')));
+        $message = $user_signon->errors['incorrect_password'] ? 'Incorrect password' : ($user_signon->errors['invalid_username'] ? 'Invalid username' : null);
+        echo json_encode(array('loggedin'=>false, 'message'=>__($message)));
     } else {
         echo json_encode(array('loggedin'=>true, 'message'=>__('Login successful, redirecting...')));
     }
