@@ -366,3 +366,60 @@ function ajax_login(){
 
     die();
 }
+
+function vb_register_user_scripts() {
+    // Enqueue script
+    wp_register_script('vb_reg_script', get_template_directory_uri() . '/js-folder/ajax-registration.js', array('jquery'), null, false);
+    wp_enqueue_script('vb_reg_script');
+
+    wp_localize_script( 'vb_reg_script', 'vb_reg_vars', array(
+            'vb_ajax_url' => admin_url( 'admin-ajax.php' ),
+        )
+    );
+}
+add_action('wp_enqueue_scripts', 'vb_register_user_scripts', 100);
+
+/**
+ * New User registration
+ *
+ */
+function vb_reg_new_user() {
+
+    // Verify nonce
+    if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) )
+        die( 'Ooops, something went wrong, please try again later.' );
+
+    // Post values
+    $username = $_POST['user'];
+    $password = $_POST['pass'];
+    $email    = $_POST['mail'];
+    $name     = $_POST['name'];
+    $nick     = $_POST['nick'];
+
+    /**
+     * IMPORTANT: You should make server side validation here!
+     *
+     */
+
+    $userdata = array(
+        'user_login' => $username,
+        'user_pass'  => $password,
+        'user_email' => $email,
+        'first_name' => $name,
+        'nickname'   => $nick,
+    );
+
+    $user_id = wp_insert_user( $userdata ) ;
+
+    // Return
+    if( !is_wp_error($user_id) ) {
+        echo '1';
+    } else {
+        echo $user_id->get_error_message();
+    }
+    die();
+
+}
+
+add_action('wp_ajax_register_user', 'vb_reg_new_user');
+add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
