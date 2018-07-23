@@ -326,7 +326,7 @@ Shapely_Builder::get_instance();
 
 function ajax_login_init(){
 
-    wp_register_script('ajax-login-script', get_template_directory_uri() . '/ajax-login-script.js', array('jquery') );
+    wp_register_script('ajax-login-script', get_template_directory_uri() . '/assets/js/ajax-login-script.js', array('jquery') );
     wp_enqueue_script('ajax-login-script');
 
     wp_localize_script( 'ajax-login-script', 'ajax_login_object', array(
@@ -369,7 +369,7 @@ function ajax_login(){
 
 function vb_register_user_scripts() {
     // Enqueue script
-    wp_register_script('vb_reg_script', get_template_directory_uri() . '/js-folder/ajax-registration.js', array('jquery'), null, false);
+    wp_register_script('vb_reg_script', get_template_directory_uri() . '/assets/js/ajax-registration.js', array('jquery'), null, false);
     wp_enqueue_script('vb_reg_script');
 
     wp_localize_script( 'vb_reg_script', 'vb_reg_vars', array(

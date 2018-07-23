@@ -47,7 +47,5 @@
 <?php wp_footer(); ?>
 <script type="text/javascript" src="<?= get_template_directory_uri()?>/bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="<?= get_template_directory_uri()?>/assets/js/login.js"></script>
-<script type="text/javascript" src="<?= get_template_directory_uri()?>/assets/js/ajax-login-script.js"></script>
-<script type="text/javascript" src="<?= get_template_directory_uri()?>/assets/js/ajax-register-script.js"></script>
 </body>
 </html>
